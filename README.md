@@ -80,3 +80,75 @@ There are better architectural patterns to achieve the same goals
 Stick to layering WebSockets over an application backend and let the database do what it’s best at: storing and querying data efficiently.
 
 Let me know your use case — I can recommend a concrete, real-time architecture that fits.
+
+System Design : HLD
+
+#1:
+Network Protocols
+what is Client server Model  
+Peer to Peer Model  (and learn about Web sockets)
+HTTP vs TCP vs UDP vs FTP vs SMTP(POP, IMAP)
+Examples
+
+#2
+Latency vs throughput
+Availability vs consistency (CAP theorem)
+Performance vs scalability
+Vertical Scaling
+Horizontal Scaling
+
+#3
+Api Design
+REST
+Synchronous and Asynchronous Calls
+Blocking and Non Blocking Calls
+Rate limiting
+
+#4
+Monolithics Vs Microservices
+cover all important Microservices pattern like SAGA etc.
+
+#5
+Caching
+Cache writing policies
+Types of Cache REDIS, JUNO ( L1 cache, L2 cache etc).
+CDN
+Load Balancer
+GSLB and other different ways of doing load balancing
+
+#6 
+Publish Subscribe pattern
+Queues
+Pull vs Push
+Consistent Hashing
+ZooKeeper
+Kafka 
+Elastic search, SOLR etc.
+
+
+#7 Cloud Concepts
+s3 for amazon, google filestore etc.
+
+
+#8.1
+Database1:   - Relational vs Non Relational
+ACID property
+Indexing
+Data partitioning and Sharding- Vertical vs HorizontalSharding
+In Memory Databases
+
+#8.2
+Database2:
+Replication and Mirroring
+Leader Election
+
+
+From #9 Onwards
+Solve Interview Questions 
+
+**Client Server Protocol**
+HTTP, SMTP, FTP and WebSocket
+
+**Peer to Peer**
+WebRTC
+
