@@ -36,6 +36,10 @@ WebSocket servers need sticky sessions or connection-aware clustering, which are
 Databases scale best with short-lived stateless queries rather than long-lived message-passing sessions.
 
 
+**Distributed system failure matrix**
+<img width="958" height="329" alt="image" src="https://github.com/user-attachments/assets/d9483b2c-6726-4bda-a5cd-63d35b8d31a8" />
+
+
 
 
 
