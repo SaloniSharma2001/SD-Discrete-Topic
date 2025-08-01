@@ -206,13 +206,13 @@ WebRTC
 
 **Resources**
 
-https://www.distributedsystemscourse.com/
-
 https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake
 
 https://github.com/sony/sonyflake?tab=readme-ov-
 
 https://arpitbhayani.me/blogs/
+
+https://planetscale.com/blog/the-problem-with-using-a-uuid-primary-key-in-mysql
 
 For distributed systems:
 
@@ -221,4 +221,6 @@ https://www.youtube.com/channel/UC_7WrbZTCODu1o_kfUMq88g/videos
 https://www.youtube.com/@lindseykuperwithasharpie/playlists
 
 https://www.youtube.com/@DistributedSystems
+
+https://www.distributedsystemscourse.com/
 
