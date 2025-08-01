@@ -35,6 +35,58 @@ WebSocket servers need sticky sessions or connection-aware clustering, which are
 
 Databases scale best with short-lived stateless queries rather than long-lived message-passing sessions.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Concept and coding course**
+
 ✅ Recommended Architecture Instead
 Use three-layer separation:
 
@@ -151,4 +203,22 @@ HTTP, SMTP, FTP and WebSocket
 
 **Peer to Peer**
 WebRTC
+
+**Resources**
+
+https://www.distributedsystemscourse.com/
+
+https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake
+
+https://github.com/sony/sonyflake?tab=readme-ov-
+
+https://arpitbhayani.me/blogs/
+
+For distributed systems:
+
+https://www.youtube.com/channel/UC_7WrbZTCODu1o_kfUMq88g/videos
+
+https://www.youtube.com/@lindseykuperwithasharpie/playlists
+
+https://www.youtube.com/@DistributedSystems
 
