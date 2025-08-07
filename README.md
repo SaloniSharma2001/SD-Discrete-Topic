@@ -1,6 +1,47 @@
 # SD-Discrete-Topic
 This doesn't contains topic wise collection of information, it is just the topics details I got confused in while learning system design and got clarification upon exploration.
 
+<h5>Scalability</h5>
+A service is said to be scalable if when we increase the resources in a system, it results in increased performance in a manner proportional to resources added.
+
+Another way to look at performance vs scalability:
+
+If you have a performance problem, your system is slow for a single user.
+If you have a scalability problem, your system is fast for a single user but slow under heavy load.
+
+**Scalability rule**
+<ul>
+  <li> Golden rule for scalability: Every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory.</li>
+  <li>Sessions need to be stored in a centralized data store which is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis.</li>
+  <li>An external persistent cache will have better performance than an external database.</li> 
+</ul>
+
+How can we make sure that a code change is sent to all your servers without one server still serving old code? <br>
+Using _Capistrano_ written in _Ruby_. It requires some learning of Ruby on Rails.
+
+There are two type of caching:
+
+#1 - _Cached Database Queries_
+
+The most common caching pattern involves storing query results in cache using a hashed version of the query as the key. On subsequent runs, the cache is checked first. However, this approach has issues — especially with expiration. When data changes (even a single table cell), it becomes difficult to identify and invalidate all affected cached queries, making cache management complex and error-prone.
+
+#2 - _Cached Objects_
+
+Strongly recommends an **object-based caching pattern**: treat your data like objects (as in code), assemble them in classes (e.g., a `Product` object with prices, texts, images, reviews), and cache the **fully assembled object** or its dataset. This simplifies cache invalidation and boosts performance.
+
+It also enables **asynchronous processing**, where worker servers build and cache objects for the app to consume — reducing direct database access.
+
+Examples of cacheable objects include:
+
+* User sessions
+* Rendered blog articles
+* Activity streams
+* Friend relationships
+
+Biased prefers **Redis** for its advanced features (persistence, data structures) but suggests **Memcached** for simple, high-performance caching due to its scalability.
+
+
+fter we centralized session management and served the same codebase from all our servers, we created an Amazon Machine Image (AMI) from one of them. This AMI acts as a master template for launching new instances. Now, whenever we start a new instance, we simply deploy the latest code, and it’s ready to go.
 
 <H3> Using a WebSocket server inside a database to handle storage or expose DB functionality is not a good idea in most cases. Here’s a detailed breakdown of why it’s discouraged, both conceptually and practically. </H3>
 
@@ -215,6 +256,8 @@ https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake
 https://github.com/sony/sonyflake?tab=readme-ov-
 
 https://arpitbhayani.me/blogs/
+
+https://web.archive.org/web/20221030091841/http://www.lecloud.net/tagged/scalability/chrono
 
 https://planetscale.com/blog/the-problem-with-using-a-uuid-primary-key-in-mysql
 
