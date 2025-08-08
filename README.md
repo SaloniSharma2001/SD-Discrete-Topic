@@ -128,8 +128,6 @@ Databases scale best with short-lived stateless queries rather than long-lived m
 
 
 
-
-
 **Concept and coding course**
 
 ✅ Recommended Architecture Instead
