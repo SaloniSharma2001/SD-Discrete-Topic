@@ -179,13 +179,36 @@ Let me know your use case — I can recommend a concrete, real-time architecture
 System Design : HLD
 
 #1:
-Network Protocols
-what is Client server Model  
-Peer to Peer Model  (and learn about Web sockets)
+**Network Protocols :** The rules defined between computers in order to communicate.
+_Application Layer having two models_
+
+what is Client server Model :HTTP, FTP, SMTP and Web Sockets 
+
+(In Client server, client gives a request and server gives a response hence one way communication but in **WebSocet** do have bidirection communication system although it is not be mistaken as peer to peer because what actually happens is two client needs one common server to communicate. For ex: client1 sends message to client2 but it gets to a server first and then client2  gets it from there).
+
+**HTTP** have only one connection hence connection oriented which redirects to a web page and we usually navigate to other pages through the url in it.
+
+**FTP** has 2 connection control connection and data connection where data connection usually gets terminated where as the control connection remains there. Data connection is not encrypted and hence not secured and that's the reason people avoids its use case.
+
+SMTP: Used with IMAP or POP3, used for sending the mail where as IMAP is used to access or receive the mail or read the mail. POP3 usually downloads the mail and delete it then hence not getting used widely.
+
+
+Peer to Peer Model  (and learn about Web sockets): WebRTC, Herre all of them can be server and client. It uses UDP because ordering of data is not mandatory and we can lose some data.
+
 HTTP vs TCP vs UDP vs FTP vs SMTP(POP, IMAP)
 Examples
 
+Transport Layer and Network Layer
+TCP/IP and UDP/IP one have ack and UDP doesn't, and no connection gets maintained hence no ordering but it's faster than TCP. UDP breaks data into small packets and sends it without ack.
+
 #2
+Desirable property of distributed system with replicated data
+**C stands for consistency**
+**A stands for Availability**
+**P stands for Partitioning Tolerance**
+
+But not all 3 can be used together only combination of two if then can be used
+
 Latency vs throughput
 Availability vs consistency (CAP theorem)
 Performance vs scalability
