@@ -260,6 +260,9 @@ Database2:
 Replication and Mirroring
 Leader Election
 
+<img width="804" height="684" alt="image" src="https://github.com/user-attachments/assets/fa8c59b3-fa08-45f1-a3ff-9d55ad96ca94" />
+
+
 
 From #9 Onwards
 Solve Interview Questions 
