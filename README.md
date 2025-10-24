@@ -273,6 +273,63 @@ HTTP, SMTP, FTP and WebSocket
 **Peer to Peer**
 WebRTC
 
+
+
+- IPA Gateway
+- Caching
+- Queue System
+- Broker System
+- High Throughput System
+- Microservice Architecture
+- Container Orcestration
+- Cloud Environment
+- Application Load Balancer
+- Network Load Balancer
+- Rate Limiting Strategies
+- Scale-out and Scale-in
+- Horizontal Scaling
+- Verticle Scalling
+- VPC
+- Auto Scalling Policies
+- SQS
+- SNS (Simple Notification System)
+- Event Driven Architecture
+- Fanout Architecture
+- READ Replica & Write Replica
+- Caching
+- CDN
+- ClourdFront
+- Anycast
+1. Back of Envelope
+2. Consistent Hashing
+3. Quorum
+4. Leader and Follower
+5. Write-ahead Log
+6. Segmented Log
+7. High-Water mark
+8. Lease
+9. Heartbeat
+10. Gossip Protocol
+11. Phi Accrual Failure Detection
+12. Split-brain
+13. Fencing
+14. Checksum
+15. Vector Clocks
+16. CAP Theorem
+17. PACELEC Theorem
+18. Hinted Handoff
+19. Read Repair
+20. Merkle Trees
+
+1. NPCI- National Payment Corporation of India -  Payment Infrastructure 
+2. IMPS- Payment Protocol- payment upto 50k
+3. NEFT- Payment Protocol- payment from 50k to 2 lakh
+4. RTGS- Payment Protocol - payment more then 2 lakh
+5. CPSP- Customer payment service provider 
+6. UPI- payment gateway- real-time payment 
+7. Partner bank 
+8. VPA- virtual payment address
+
 **Resources**
 
 https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake
