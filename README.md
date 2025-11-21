@@ -330,6 +330,52 @@ WebRTC
 7. Partner bank 
 8. VPA- virtual payment address
 
+Scalability & Performance
+1. Vertical vs Horizontal Scaling
+2. Latency & Throughput (P50/P95/P99)
+3. Capacity Estimation (QPS, storage, bandwidth)
+4. Networking Basics (TCP, HTTP/HTTPS, TLS, UDP, DNS)
+5. Load Balancing (L4/L7, RR, least-connections, consistent hashing)
+6. CDN & Edge Delivery
+7. Sharding & Partitioning (hash, range, geo)
+8. Replication (sync/async, leader/follower, read replicas)
+9. Consistency Models (strong, eventual, causal)
+10. CAP Theorem
+11. Redundancy & Failover (multi-AZ/region)
+12. Backpressure
+13. Rate Limiting & Throttling
+14. Queues & Streams (Kafka, RabbitMQ, etc.)
+15. Delivery Semantics (at-most/at-least/exactly-once)
+↬ Data Storage & Modeling
+16. Database Choice (SQL vs NoSQL )
+17. Data Modeling & Schema Design
+18. Indexing
+19. Normalization vs Denormalization
+20. Caching Strategies (client, app, DB, CDN)
+21. Cache Invalidation
+22. Serialization & Schema Evolution (JSON, Avro, Proto)
+23. Distributed Transactions (Sagas, 2PC)
+24. Event Sourcing & CQRS
+25. Consensus & Leader Election (Raft, Paxos)
+↬ API & Service Architecture
+26. API Design (REST vs RPC/gRPC)
+27. API Versioning
+28. Service Discovery & Configuration
+29. Microservices vs Monolith
+30. Deployment Strategies (blue/green, canary, rollbacks)
+↬ Reliability, Security & Observability
+31. AuthN & AuthZ (OAuth2, JWT, RBAC/ABAC)
+32. Circuit Breakers, Timeouts, Retries
+33. Observability (logs, metrics, traces, SLI/SLOs, error budgets)
+34. Health Checks & Heartbeats
+35. Disaster Recovery (backups, RPO/RTO, runbooks)
+36. Data Privacy & Retention (encryption, GDPR/CCPA)
+Advanced Patterns & Other Essentials
+37. Concurrency Control (locks, MVCC, optimistic retries)
+38. Multithreading (thread pools, contention, context switching)
+39. Idempotency
+40. Real-time Delivery (polling, SSE, WebSockets)
+
 **Resources**
 
 https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake
