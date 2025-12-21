@@ -12,7 +12,7 @@ If you have a scalability problem, your system is fast for a single user but slo
 **Scalability rule**
 <ul>
   <li> Golden rule for scalability: Every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory.</li>
-  <li>Sessions need to be stored in a centralized data store which is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis.</li>
+  <li>Sessions need to be stored in a centralized data store that is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis.</li>
   <li>An external persistent cache will have better performance than an external database.</li> 
 </ul>
 
@@ -41,7 +41,7 @@ Examples of cacheable objects include:
 Biased prefers **Redis** for its advanced features (persistence, data structures) but suggests **Memcached** for simple, high-performance caching due to its scalability.
 
 
-fter we centralized session management and served the same codebase from all our servers, we created an Amazon Machine Image (AMI) from one of them. This AMI acts as a master template for launching new instances. Now, whenever we start a new instance, we simply deploy the latest code, and it’s ready to go.
+After we centralized session management and served the same codebase from all our servers, we created an Amazon Machine Image (AMI) from one of them. This AMI acts as a master template for launching new instances. Now, whenever we start a new instance, we simply deploy the latest code, and it’s ready to go.
 
 <H3> Using a WebSocket server inside a database to handle storage or expose DB functionality is not a good idea in most cases. Here’s a detailed breakdown of why it’s discouraged, both conceptually and practically. </H3>
 
@@ -59,7 +59,7 @@ Running this logic inside the database engine adds unnecessary complexity to som
 3. **Performance Penalty**
 Database engines are optimized for data access, not handling concurrent long-lived TCP connections.
 
-WebSocket connections can stay open for hours — consuming threads, memory, and resources that should be available for DB queries and transactions.
+WebSocket connections can stay open for hours, consuming threads, memory, and resources that should be available for DB queries and transactions.
 
 4. **Security Concerns**
 Databases are rarely exposed directly to the public — and for good reason.
@@ -80,6 +80,8 @@ Databases scale best with short-lived stateless queries rather than long-lived m
 **Distributed system failure matrix**
 <img width="958" height="329" alt="image" src="https://github.com/user-attachments/assets/d9483b2c-6726-4bda-a5cd-63d35b8d31a8" />
 
+
+ 
 
 
 
@@ -261,6 +263,331 @@ Replication and Mirroring
 Leader Election
 
 <img width="804" height="684" alt="image" src="https://github.com/user-attachments/assets/fa8c59b3-fa08-45f1-a3ff-9d55ad96ca94" />
+
+
+
+
+
+
+<h3>DB Scaling</h3><br>
+
+**Vertical DB Scaling (Scale Up)** <br>
+
+_Increase DB server:_
+
+-> More RAM
+
+-> More CPU
+
+-> Faster disk (IOPS)
+
+-> Network
+
+**Horizontal DB Scaling:** <br>
+
+_A) Read Replicas (Most Common)_
+
+Used when:
+
+-- Lots of READ traffic
+-- Fewer WRITES
+
+`
+                 → Read Replica 1
+App → Primary DB → Read Replica 2
+                → Read Replica 3 `
+
+`Writes → Primary
+Reads  → Replica 1 / Replica 2 / Replica 3`
+
+-- Writes → Primary DB
+-- Reads → Replicas
+
+**B) Sharding (True Horizontal Scaling)** <br>
+
+Split data across multiple databases.<br>
+Example: User table split by user_id
+
+`Users 1–1M   → DB1
+Users 1M–2M  → DB2
+Users 2M–3M  → DB3`
+
+**Database Autoscaling (Depends on the Type)** <br>
+
+    Partitioning optimizes queries.
+    Read replicas scale reads.
+    Sharding scales writes.
+
+ _A) Vertical DB Scaling_
+
+ Mostly manual or semi-automatic. Increase instance size. Often causes brief downtime. Not instant
+
+_B) DB Storage Autoscaling:_ YES — automatic
+
+Most managed DBs support this:
+1) Amazon RDS
+2) Aurora
+3) Cloud SQL
+
+_C) Read Replicas Autoscaling:_  Partially automated
+
+Options:<br>
+Manual
+You add/remove replicas yourself<br>
+Scripted / Policy-based<br>
+CloudWatch alarm → Lambda → add replica<br>
+
+**Fully managed (Aurora)**
+Aurora can auto-scale read replicas
+
+`Primary DB
+   ↓
+Aurora auto-adds replicas when read load increases`
+
+_D) Sharding Autoscaling:_  NO — not automatic
+
+We must design sharding logic. Decide shard keys. Move data manually or via custom tooling
+
+NoSQL systems do autoscale extremely well:
+
+Examples: DynamoDB, Cassandra, Bigtable
+
+`Traffic ↑ → DynamoDB auto-adds partitions
+Traffic ↓ → DynamoDB scales down`
+
+**What is table partitioning**<br>
+Partitioning (Inside One DB)
+
+-- One database instance
+-- One DB server
+
+Tables are split into partitions
+
+`Single DB
+└── users table
+    ├── users_2023
+    ├── users_2024
+    └── users_2025`
+
+    How the partition looks:
+    Schemas
+     └── public
+         └── Tables
+             └── users           ← parent table
+                 ├── Partitions
+                 │   ├── users_2024_01
+                 │   ├── users_2024_02
+                 │   └── users_2024_03
+
+      Query like:
+      SELECT * FROM users
+    WHERE created_at >= '2024-01-01'
+      AND created_at <  '2024-02-01';
+
+
+
+_Types of partitioning_ <br>
+
+--> Range (date, id)
+--> List (region)
+--> Hash
+--> KEY
+
+**Sharding:**
+
+Sharding (Across Multiple DBs)
+
+Multiple database servers. Each DB holds a subset of data
+
+`App
+├── DB1 (users 1–1M)
+├── DB2 (users 1M–2M)
+└── DB3 (users 2M–3M)`
+
+_Use Partitioning when:_
+
+<li>The table is very large</li>
+<li>Queries are slow</li>
+<li>You want better performance</li>
+<li>Still fits on one DB</li>
+
+_Use Sharding when:_
+
+<li>DB cannot handle data size</li>
+<li>Write throughput is too high</li>
+<li>Vertical scaling is maxed out</li>
+
+**Global Indexes vs Local Indexes**
+
+_Local index_
+
+<li>Index exists per partition
+<li>Faster inserts
+<li>Most common
+
+_Global index_
+
+<li>Index spans all partitions
+<li>Faster joins sometimes
+<li>Slower writes
+
+
+**Scaling through read replicas**
+
+Read replicas are copies of the primary database used only for READ queries to reduce load on the primary.
+
+                    ┌── Read Replica 1
+    App ── Writes ─▶│
+                    ├── Read Replica 2
+                    │
+                    └── Read Replica 3
+               ↑
+           Primary DB
+
+           Rules:
+
+      Writes → Primary (master)
+      
+      Reads → Replicas
+      
+      Replicas are read-only
+
+
+_Asynchronous Data Replication:_
+
+    Primary writes data
+    ↓
+    Changes written to WAL / binlog
+    ↓
+    Replicas pull & apply changes
+
+**How the application reads:**
+
+_A) App-level routing_ 
+
+        UserService
+         ├── writeRepository → primary DB
+         └── readRepository  → replica DB
+         
+         POST /users → primary
+         GET /users → replica
+         
+_B) Proxy-based routing_
+          
+          Tools:
+    
+    ProxySQL (MySQL)
+    
+    PgBouncer / HAProxy (Postgres)
+
+    App → DB Proxy → Primary / Replica
+
+    Chances of inconsistency are there due to a lag in data replication across Replicas, and the solution to that is
+    -> Read-after-write → primary
+    -> Session pinning
+    -> Short TTL caching
+
+Breaks when the immediate user reads from primary, but other reads from replica, and then if two users see different truths at the same time, the system is not consistent.
+
+    Write → Primary
+            ↓ (later)
+            Replica
+This can be sorted by using when we allow read only when write has already happened
+            
+            Writes → Primary
+            Reads  → Primary
+But then we lose the faster reads, and the primary becomes a bottleneck.
+
+_Synchronous Replication:_
+
+In SQL:
+
+    synchronous_commit = on
+    synchronous_standby_names = 'replica1'
+
+Commit waits for replica ACK
+
+      Write → Primary → Replica ACK → Commit success
+
+_Read-After-Write Routing:_
+
+    Writes → Primary
+    
+    Immediate reads → Primary
+    
+    Later reads → Replica
+
+    POST /update-profile → Primary
+    GET  /profile        → Primary (for 1–2 seconds)
+  
+Read-after-write pinning guarantees: The same user sees their own write
+
+But it does NOT guarantee: Other users see that write immediately.
+
+    Primary DB
+       ↓ (async)
+    Read Replica
+    
+    //Step 1: User A updates profile
+    Time T1:
+    User A → Write to Primary → SUCCESS
+    
+    //Step 2: Replication lag
+    Primary has new data
+    Replica is still old (lag = 500ms–2s)
+
+    //Step 3: User B reads
+    Time T1 + 100ms:
+    User B → Read from Replica → OLD DATA ❌
+
+    //Step 4: User A reads
+    Time T1 + 100ms:
+    User A → Read from Primary → NEW DATA ✅
+
+    this is a deliberate trade-off.
+
+    Read replicas choose:
+    
+    Availability + Performance
+    over
+    Immediate Global Consistency
+
+    
+**Techniques:**
+
+<li> Session pinning
+  A) Session pinning
+
+    Store a flag in session / JWT
+    
+    Example:
+    
+    {
+      "forcePrimaryRead": true,
+      "expiresAt": 5s
+    }
+    
+<li> Sticky connections
+<li> Request context flag
+  
+      if (recentWrite) {
+          usePrimary();
+      } else {
+          useReplica();
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
