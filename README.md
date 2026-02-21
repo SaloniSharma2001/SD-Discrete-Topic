@@ -579,10 +579,22 @@ But it does NOT guarantee: Other users see that write immediately.
 
 
 
+------------------Need to read the thread more and more-------------------------------------------------
+<h3>Event Sourcing</h3>
+Event Sourcing is different from CRUD system and is inspired from Event Driven Architecture.
+
+<h4>Event</h4>
+<img width="1004" height="474" alt="image" src="https://github.com/user-attachments/assets/19a79bc5-5932-4438-9533-271799390d53" />
 
 
+Let's say an user is requesting something on our API gateway and API gateway will redirect to the server. To be precise, we will have a reverse proxy for instance nginx and API gateway will redirect he request to the nginx and nginx will forward the request to the server.
 
 
+<h3>CQRS Design Pattern</h3>
+Command Query Responsibility Segregation Principle
+<h3>Consistent Hashing</h3>
+<h3>Back Of The Envelope Calculation</h3>
+<h3>Bloom Filters</h3>
 
 
 
