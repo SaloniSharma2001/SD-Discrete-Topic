@@ -593,10 +593,30 @@ Let's say an user is requesting something on our API gateway and API gateway wil
 <h3>CQRS Design Pattern</h3>
 Command Query Responsibility Segregation Principle
 <h3>Consistent Hashing</h3>
-<h3>Back Of The Envelope Calculation</h3>
-<h3>Bloom Filters</h3>
+<h3>Back Of The Envelope Calculation</h3><br>
+<h3>Bloom Filters</h3><br>
+
+<h3>Gossip Protocol</h3><br>
+If we have let's say only one DB then that DB will become a single point of failure for us under heavy loan and there is a limit upto which we can scale a DB vertically.
+<img width="1269" height="681" alt="image" src="https://github.com/user-attachments/assets/d16243af-9f0a-4f5f-b3e2-22a5452fa5eb" />
+
+So in this case we can have multiple DB and we can split the data in between these two DBs.
+<img width="1229" height="711" alt="image" src="https://github.com/user-attachments/assets/5ad58402-8902-4086-8d36-818e1f431fd1" />
+
+But now we have new problem of maintaining consistency between these DBs and we need to keep these DBs in sync so that if the update happens in the DB and read happens from the DB2 then user gets the updated answer else it will look inconsistent.
 
 
+Now to maintain consistency between any replica of either Redis or DB of all region we can use Master Slave Architecture where we can use Leader Election Algorithm.
+Master-slave is a distributed architecture where a primary node (master) coordinates tasks and handles writes, while secondary nodes (slaves) replicate data and handle reads. When a master fails, a leader election algorithm—such as the Bully or Ring algorithm—is triggered to elect a new master from the slaves to maintain system availability and prevent single points of failure.
+Master-slave = one central node (the master) and multiple worker nodes (slaves)
+Leader Election = All nodes are equal, and one node is elected as the leader.
+But using the above approach we only get something called 'Eventual Consistency' because the data propagation from Master to Slave takes time and we still have SPOF.
+
+One can simulate this protocol from here
+https://flopezluis.github.io/gossip-simulator/?ref=highscalability.com
+Read leader election algos from https://www.sciencedirect.com/topics/computer-science/election-algorithm
+https://www.geeksforgeeks.org/operating-systems/berkeleys-algorithm/
+https://highscalability.com/gossip-protocol-explained/
 
 
 
